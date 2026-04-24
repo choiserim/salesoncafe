@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세일즈온 : 생존의 도구와 생태계</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@100;400;700;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Pretendard', 'sans-serif'] },
+                    colors: {
+                        primary: '#111827', // dark navy
+                        accent: '#f59e0b', // amber
+                        surface: '#f9fafb'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* <!-- Chosen Palette: Navy & Amber High Contrast --> */
+        body { background-color: #f9fafb; color: #111827; }
+        .chart-container { position: relative; width: 100%; height: 300px; max-height: 300px; margin: auto; }
+        .card-hover { transition: all 0.3s ease; }
+        .card-hover:hover { transform: translateY(-5px); border-color: #f59e0b; }
+        .btn-hover { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .btn-hover:hover { transform: scale(1.02); box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        /* <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. --> */
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-primary text-white border-b border-gray-800 p-4 sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="bg-accent text-primary font-black px-2 py-1 rounded text-sm">PRO</span>
+                <h1 class="text-xl font-black tracking-tighter italic">SALESON : THE ARMORY</h1>
+            </div>
+            <div class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#section-failure" class="hover:text-accent transition-colors">실패담</a>
+                <a href="#section-tools" class="hover:text-accent transition-colors">실무도구</a>
+                <a href="#section-jobs" class="hover:text-accent transition-colors">구인구직</a>
+                <a href="https://cafe.naver.com/saleson" target="_blank" class="bg-accent text-primary px-4 py-2 rounded-lg font-bold btn-hover">지금 가입하기</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="max-w-5xl mx-auto p-6 space-y-12 pb-24">
+        
+        <!-- Hero Section -->
+        <header class="text-center py-16 space-y-6">
+            <div class="inline-block bg-accent/10 text-accent px-4 py-1 rounded-full text-sm font-bold mb-4">영업인의 성지, 세일즈온</div>
+            <h2 class="text-4xl md:text-6xl font-black leading-tight">성공팔이에 지친 당신을 위한<br><span class="text-accent underline decoration-4 underline-offset-8">진짜 영업자들의 블랙박스</span></h2>
+            <p class="text-gray-500 max-w-2xl mx-auto text-lg">
+                현장에서는 화려한 성공담보다 뼈아픈 실패담이 더 값진 법입니다.<br>
+                [세일즈온]은 당신의 무기를 갈고닦고, 전우를 찾는 '최전방 기지'입니다.
+            </p>
+            <div class="pt-4">
+                <a href="https://cafe.naver.com/saleson" target="_blank" class="inline-block bg-primary text-white px-10 py-4 rounded-xl font-black text-xl btn-hover shadow-2xl">
+                    실전 무기고 입장하기
+                </a>
+            </div>
+        </header>
+
+        <!-- Section 1: Failure Stories -->
+        <section id="section-failure" class="space-y-6 scroll-mt-24">
+            <div class="flex items-end justify-between border-b-2 border-primary pb-2">
+                <h3 class="text-2xl font-black">01. 실패담 : 가장 확실한 오답노트</h3>
+                <span class="text-gray-400 text-sm font-mono">/ ANTIFRAGILE</span>
+            </div>
+            <p class="text-gray-600">성공담은 '운'이 개입할 수 있지만, 실패는 '법칙'이 있습니다. 타인의 실패를 통해 당신의 리스크 비용을 0원으로 만드십시오.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 card-hover">
+                    <h4 class="font-bold text-lg mb-4 text-red-600">데이터가 말하는 실패의 가치</h4>
+                    <div class="chart-container">
+                        <canvas id="failureChart"></canvas>
+                    </div>
+                </div>
+                <div class="bg-primary text-white p-8 rounded-2xl flex flex-col justify-center space-y-6">
+                    <div class="border-l-4 border-accent pl-4">
+                        <p class="italic text-lg">"왜 나만 계약이 안 될까? 고민할 시간에 남들은 어떻게 망했는지를 보세요. 그게 가장 빠른 지름길입니다."</p>
+                    </div>
+                    <ul class="space-y-3 text-sm text-gray-300">
+                        <li class="flex items-center">○ 1,000건 이상의 검증된 실패 사례 아카이브</li>
+                        <li class="flex items-center">○ 업종별 '절대 하지 말아야 할 짓' 리스트</li>
+                        <li class="flex items-center">○ 멘탈 붕괴 방지를 위한 영업자 심리 케어</li>
+                    </ul>
+                    <a href="https://cafe.naver.com/saleson" target="_blank" class="text-center bg-white/10 hover:bg-white/20 border border-white/30 py-3 rounded-xl font-bold transition-all">
+                        실패 사례 게시판 보기
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Tools & Templates -->
+        <section id="section-tools" class="space-y-6 scroll-mt-24">
+            <div class="flex items-end justify-between border-b-2 border-primary pb-2">
+                <h3 class="text-2xl font-black">02. 실무 도구 : 압도적 생산성의 무기</h3>
+                <span class="text-gray-400 text-sm font-mono">/ WEAPONRY</span>
+            </div>
+            <p class="text-gray-600">영업은 말빨이 아니라 시스템입니다. 현장에서 즉시 활용 가능한 실전 문서와 프로그램을 제공합니다.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div class="bg-white p-6 rounded-xl border border-gray-200 card-hover flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-2xl mb-4">📄</div>
+                    <h5 class="font-bold mb-2">프리미엄 문서 양식</h5>
+                    <p class="text-xs text-gray-500 mb-4">제안서, 계약서, 거절 대응 스크립트 등 50여 종</p>
+                    <a href="https://cafe.naver.com/saleson" target="_blank" class="text-xs font-bold text-accent hover:underline">양식 다운로드 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 card-hover flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-2xl mb-4">⚙️</div>
+                    <h5 class="font-bold mb-2">활동 관리 프로그램</h5>
+                    <p class="text-xs text-gray-500 mb-4">DB 관리, 성과 분석 자동화 툴 제공</p>
+                    <a href="https://cafe.naver.com/saleson" target="_blank" class="text-xs font-bold text-accent hover:underline">프로그램 확인 →</a>
+                </div>
+                <div class="bg-white p-6 rounded-xl border border-gray-200 card-hover flex flex-col items-center text-center">
+                    <div class="w-12 h-12 bg-accent/10 rounded-full flex items-center justify-center text-2xl mb-4">💡</div>
+                    <h5 class="font-bold mb-2">최신 시장 리포트</h5>
+                    <p class="text-xs text-gray-500 mb-4">매주 업데이트되는 업종별 트렌드 리포트</p>
+                    <a href="https://cafe.naver.com/saleson" target="_blank" class="text-xs font-bold text-accent hover:underline">리포트 구독 →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Recruitment -->
+        <section id="section-jobs" class="space-y-6 scroll-mt-24">
+            <div class="flex items-end justify-between border-b-2 border-primary pb-2">
+                <h3 class="text-2xl font-black">03. 구인/구직 : 프로들의 검증된 전장</h3>
+                <span class="text-gray-400 text-sm font-mono">/ ECOSYSTEM</span>
+            </div>
+            
+            <div class="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm">
+                <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                    <div class="space-y-6">
+                        <div class="inline-block bg-accent text-primary px-3 py-1 text-xs font-black rounded-full">MATCHING SYSTEM</div>
+                        <h4 class="text-3xl font-black">어중이떠중이가 아닌,<br>진짜 '전투원'을 매칭합니다.</h4>
+                        <p class="text-gray-600">
+                            영업팀의 성패는 사람에게 달려 있습니다. [세일즈온]은 검증된 활동 내역을 바탕으로 최적의 구인/구직 환경을 제공합니다.
+                        </p>
+                        <div class="flex space-x-4">
+                            <div class="text-center">
+                                <p class="text-2xl font-black text-accent">92%</p>
+                                <p class="text-xs text-gray-400">매칭 만족도</p>
+                            </div>
+                            <div class="w-px h-10 bg-gray-200"></div>
+                            <div class="text-center">
+                                <p class="text-2xl font-black text-accent">24h</p>
+                                <p class="text-xs text-gray-400">평균 매칭 속도</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">👤</span>
+                                <div>
+                                    <p class="text-sm font-bold">억대 연봉 TOP 퍼포머</p>
+                                    <p class="text-xs text-gray-400">법인 영업 8년차 / 수도권</p>
+                                </div>
+                            </div>
+                            <a href="https://cafe.naver.com/saleson" target="_blank" class="text-xs bg-primary text-white px-3 py-1 rounded">제안하기</a>
+                        </div>
+                        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center">👤</span>
+                                <div>
+                                    <p class="text-sm font-bold">열정 가득한 신입 루키</p>
+                                    <p class="text-xs text-gray-400">보험 영업 1년차 / 대구</p>
+                                </div>
+                            </div>
+                            <a href="https://cafe.naver.com/saleson" target="_blank" class="text-xs bg-accent text-primary font-bold px-3 py-1 rounded">채용중</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action -->
+        <section class="bg-accent rounded-3xl p-12 text-center space-y-8 relative overflow-hidden">
+            <!-- Decorative Pattern (Simplified with CSS) -->
+            <div class="absolute top-0 right-0 p-10 text-primary/10 text-9xl font-black select-none pointer-events-none italic">JOIN</div>
+            
+            <h3 class="text-3xl md:text-5xl font-black text-primary italic relative z-10">"DON'T JUST SELL, OVERTAKE."</h3>
+            <p class="text-primary/70 font-medium text-lg relative z-10">단순히 파는 사람이 되지 마십시오. 시장을 장악하는 전략가가 되십시오.</p>
+            <div class="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
+                <a href="https://cafe.naver.com/saleson" target="_blank" class="bg-primary text-white px-10 py-4 rounded-xl font-black text-lg hover:bg-black transition-all shadow-2xl btn-hover">
+                    네이버 카페 가입하기
+                </a>
+                <a href="https://cafe.naver.com/saleson" target="_blank" class="bg-white text-primary px-10 py-4 rounded-xl font-black text-lg hover:bg-gray-100 transition-all btn-hover">
+                    무료 문서 패키지 받기
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('failureChart').getContext('2d');
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['성공담 학습 시', '실패담 학습 시'],
+                    datasets: [{
+                        label: '리스크 감소율 (%)',
+                        data: [25, 85],
+                        backgroundColor: ['#e5e7eb', '#f59e0b'],
+                        borderRadius: 10,
+                        barThickness: 50
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: { 
+                            enabled: true,
+                            bodyFont: { family: 'Pretendard' },
+                            titleFont: { family: 'Pretendard' }
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, max: 100, ticks: { callback: v => v + '%' } },
+                        x: { ticks: { font: { family: 'Pretendard', weight: 'bold' } } }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
